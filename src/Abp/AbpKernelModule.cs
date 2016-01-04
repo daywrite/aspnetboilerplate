@@ -55,8 +55,9 @@ namespace Abp
                         Assembly.GetExecutingAssembly(), "Abp.Localization.Sources.AbpXmlSource"
                         )));
 
+            Configuration.Settings.Providers.Add<LocalizationSettingProvider>();
             Configuration.Settings.Providers.Add<EmailSettingProvider>();
-
+            
             Configuration.UnitOfWork.RegisterFilter(AbpDataFilters.SoftDelete, true);
             Configuration.UnitOfWork.RegisterFilter(AbpDataFilters.MustHaveTenant, true);
             Configuration.UnitOfWork.RegisterFilter(AbpDataFilters.MayHaveTenant, true);
@@ -81,11 +82,11 @@ namespace Abp
         {
             RegisterMissingComponents();
 
-            IocManager.Resolve<LocalizationManager>().Initialize();
+            IocManager.Resolve<SettingDefinitionManager>().Initialize();
             IocManager.Resolve<FeatureManager>().Initialize();
             IocManager.Resolve<NavigationManager>().Initialize();
             IocManager.Resolve<PermissionManager>().Initialize();
-            IocManager.Resolve<SettingDefinitionManager>().Initialize();
+            IocManager.Resolve<LocalizationManager>().Initialize();
         }
 
         private void ConfigureCaches()
